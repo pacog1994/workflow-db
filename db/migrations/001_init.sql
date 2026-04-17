@@ -1,4 +1,4 @@
-CREATE TABLE workflows (
+CREATE TABLE IF NOT EXISTS workflows (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT,
@@ -7,7 +7,7 @@ CREATE TABLE workflows (
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-CREATE TABLE workflow_triggers (
+CREATE TABLE IF NOT EXISTS workflow_triggers (
     id SERIAL PRIMARY KEY,
     workflow_id INT NOT NULL REFERENCES workflows(id) ON DELETE CASCADE,
     trigger_type VARCHAR(100) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE workflow_triggers (
 );
 
 
-CREATE TABLE workflow_actions (
+CREATE TABLE IF NOT EXISTS workflow_actions (
     id SERIAL PRIMARY KEY,
     workflow_id INT NOT NULL REFERENCES workflows(id) ON DELETE CASCADE,
     action_type VARCHAR(100) NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE workflow_actions (
     execution_order INT NOT NULL DEFAULT 0
 );
 
-CREATE TABLE emails (
+CREATE TABLE IF NOT EXISTS emails (
     id SERIAL PRIMARY KEY,
     gmail_message_id VARCHAR(255) UNIQUE NOT NULL,
     from_address VARCHAR(255) NOT NULL,
